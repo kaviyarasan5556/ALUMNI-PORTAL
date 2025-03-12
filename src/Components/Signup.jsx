@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-
+import bannerImage from "../assets/students.webp";
 const Signup = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/bg.jpg')" }}>
+    <div className="flex items-center justify-center min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: `url(${bannerImage})`, backgroundSize: "cover", backgroundPosition: "center" }}>
       <div className="bg-white bg-opacity-50 backdrop-blur-md p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">Sign up</h2>
         <form>
