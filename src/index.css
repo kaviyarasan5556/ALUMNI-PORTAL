@@ -1,4 +1,9 @@
 @import "tailwindcss";
+@layer utilities {
+  .text-outline {
+    -webkit-text-stroke: 1px #1e3a8a; /* Dark blue outline */
+  }
+}
 
 /* 
 :root {
