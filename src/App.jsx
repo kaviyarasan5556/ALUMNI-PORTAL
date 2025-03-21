@@ -4,15 +4,20 @@ import Home from "./Components/Home";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import TypingEffect from "./Components/TypingEffect";
-import StudentDashboard from "./Dashboard/StudentDashboard";
-import AlumniDashboard from "./Dashboard/AlumniDashboard";
-import AdminDashboard from "./Dashboard/AdminDashboard";
+import StudentDashboard from "./Dashboard/Student/StudentDashboard";
+import AlumniDashboard from "./Dashboard/Alumni/AlumniDashboard";
+import AdminDashboard from "./Dashboard/Admin/AdminDashboard";
 import NotFound from "./Components/NotFound";
 import AlumniDirectory from "./Components/AlumniDirectory";
-import StudentData from"./Components/StudentData";
+import StudentData from"./Dashboard/Admin/StudentData";
+import AlumniData from"./Dashboard/Admin/AlumniData";
 import StudentFeedback from"./Feedbacks/StudentFeedback";
 import AlumniSurveyForm from "./Feedbacks/AlumniSurveyForm";
 import AlumniRegistrationForm from "./Feedbacks/AlumniRegistrationForm"
+import AlumniProfile from "./Dashboard/Alumni/AlumniProfile";
+import CareerResource from "./Dashboard/Alumni/CareerResource";
+import SuccessStory from "./Dashboard/Alumni/SuccessStory";
+import UpcomingEvents from "./Dashboard/Alumni/UpcomingEvents";
 
 function App() {
   return (
@@ -29,9 +34,15 @@ function App() {
         <Route path="/studentfeedback" element={<StudentFeedback />} />
         <Route path="/alumni-directory" element={<AlumniDirectory />} />
         <Route path="/studentdata" element={<StudentData />} />
+        <Route path="/alumnidata" element={<AlumniData />} />
         <Route path="/AlumniSurveyForm" element={<AlumniSurveyForm />} />
+        <Route path="/AlumniProfile" element={<AlumniProfile />} />
+        <Route path="/CareerResource" element={<CareerResource />} />
         <Route path="/AlumniRegistrationForm" element={<AlumniRegistrationForm />} />
+        <Route path="/SuccessStory" element={<SuccessStory />} />
+        <Route path="/UpcomingEvents" element={<UpcomingEvents />} />
         <Route path="*" element={<NotFound />} />
+        
       </Routes>
       
     </Router>

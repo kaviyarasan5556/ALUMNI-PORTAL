@@ -7,6 +7,7 @@ export default function StudentFeedback() {
     phone: "",
     department: "",
     year: "",
+    feedback: "",
   });
 
   const departments = [
@@ -113,6 +114,20 @@ export default function StudentFeedback() {
                 </option>
               ))}
             </select>
+          </div>
+
+          {/* Feedback Message Box */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Your Feedback</label>
+            <textarea
+              name="feedback"
+              value={formData.feedback}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border rounded-lg focus:ring focus:ring-blue-300"
+              placeholder="Write your feedback here..."
+              rows="4"
+            />
           </div>
 
           {/* Submit Button */}
