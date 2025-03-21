@@ -11,6 +11,8 @@ import NotFound from "./Components/NotFound";
 import AlumniDirectory from "./Components/AlumniDirectory";
 import StudentData from"./Components/StudentData";
 import StudentFeedback from"./Feedbacks/StudentFeedback";
+import AlumniSurveyForm from "./Feedbacks/AlumniSurveyForm";
+import AlumniRegistrationForm from "./Feedbacks/AlumniRegistrationForm"
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
         <Route path="/studentfeedback" element={<StudentFeedback />} />
         <Route path="/alumni-directory" element={<AlumniDirectory />} />
         <Route path="/studentdata" element={<StudentData />} />
+        <Route path="/AlumniSurveyForm" element={<AlumniSurveyForm />} />
+        <Route path="/AlumniRegistrationForm" element={<AlumniRegistrationForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       
