@@ -12,6 +12,7 @@ import AdminDashboard from "./Dashboard/AdminDashboard";
 import NotFound from "./Components/NotFound";
 import AlumniDirectory from "./Components/AlumniDirectory";
 import StudentData from"./Components/StudentData";
+// import Studentfeedback from"./Feedback/Studentfeedback";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/studentdashboard" element={<StudentDashboard />} />
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/alumnidashboard" element={<AlumniDashboard />} />
+        {/* <Route path="/studentfeedback" element={<StudentFeedback />} /> */}
         <Route path="/alumni-directory" element={<AlumniDirectory />} />
         <Route path="/studentdata" element={<StudentData />} />
         <Route path="*" element={<NotFound />} />
