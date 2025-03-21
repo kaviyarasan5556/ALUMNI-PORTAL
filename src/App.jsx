@@ -4,15 +4,13 @@ import Home from "./Components/Home";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import TypingEffect from "./Components/TypingEffect";
-import GoogleForm from "./Components/GoogleForm";
-import AlumniSurvey from "./Components/AlumniSurvey";
 import StudentDashboard from "./Dashboard/StudentDashboard";
 import AlumniDashboard from "./Dashboard/AlumniDashboard";
 import AdminDashboard from "./Dashboard/AdminDashboard";
 import NotFound from "./Components/NotFound";
 import AlumniDirectory from "./Components/AlumniDirectory";
 import StudentData from"./Components/StudentData";
-// import Studentfeedback from"./Feedback/Studentfeedback";
+import StudentFeedback from"./Feedbacks/StudentFeedback";
 
 function App() {
   return (
@@ -23,12 +21,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/typingeffect" element={<TypingEffect />} />
-        <Route path="/googleform" element={<GoogleForm />} />
-        <Route path="/alumnisurvey" element={<AlumniSurvey />} />
         <Route path="/studentdashboard" element={<StudentDashboard />} />
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/alumnidashboard" element={<AlumniDashboard />} />
-        {/* <Route path="/studentfeedback" element={<StudentFeedback />} /> */}
+        <Route path="/studentfeedback" element={<StudentFeedback />} />
         <Route path="/alumni-directory" element={<AlumniDirectory />} />
         <Route path="/studentdata" element={<StudentData />} />
         <Route path="*" element={<NotFound />} />
