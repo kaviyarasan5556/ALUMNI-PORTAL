@@ -18,6 +18,8 @@ import AlumniProfile from "./Dashboard/Alumni/AlumniProfile";
 import CareerResource from "./Dashboard/Alumni/CareerResource";
 import SuccessStory from "./Dashboard/Alumni/SuccessStory";
 import UpcomingEvents from "./Dashboard/Alumni/UpcomingEvents";
+import Donation from "./Dashboard/Alumni/Donation";
+import CrowdFundingPage from "./Dashboard/Alumni/CrowdFundingPage";
 
 function App() {
   return (
@@ -40,7 +42,9 @@ function App() {
         <Route path="/CareerResource" element={<CareerResource />} />
         <Route path="/AlumniRegistrationForm" element={<AlumniRegistrationForm />} />
         <Route path="/SuccessStory" element={<SuccessStory />} />
+        <Route path="/Donation" element={<Donation />} />
         <Route path="/UpcomingEvents" element={<UpcomingEvents />} />
+        <Route path="/CrowdFundingPage" element={<CrowdFundingPage />} />
         <Route path="*" element={<NotFound />} />
         
       </Routes>

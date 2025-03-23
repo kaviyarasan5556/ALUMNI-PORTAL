@@ -27,7 +27,7 @@ const SuccessStory = () => {
     {
       alumniImage:
         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Karan.jpg-drvOGxQNERLLYIUidLK5EWbgSScpRn.jpeg",
-      name: "Karan Sharma",
+      name: "Ramesh Kumar",
       currentJob: "Software Engineer at Google",
       role: "Frontend Developer | React, JavaScript, TypeScript",
       achievements: "Winner of Tech Innovator Award 2024, Speaker at React Conf",
