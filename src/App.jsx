@@ -20,6 +20,9 @@ import SuccessStory from "./Dashboard/Alumni/SuccessStory";
 import UpcomingEvents from "./Dashboard/Alumni/UpcomingEvents";
 import Donation from "./Dashboard/Alumni/Donation";
 import CrowdFundingPage from "./Dashboard/Alumni/CrowdFundingPage";
+import JobPostingForm from "./Dashboard/Alumni/JobPostingForm";
+import Internship from "./Dashboard/Alumni/Internship";
+
 
 function App() {
   return (
@@ -45,6 +48,8 @@ function App() {
         <Route path="/Donation" element={<Donation />} />
         <Route path="/UpcomingEvents" element={<UpcomingEvents />} />
         <Route path="/CrowdFundingPage" element={<CrowdFundingPage />} />
+        <Route path="/JobPostingForm" element={<JobPostingForm />} />
+        <Route path="/Internship" element={<Internship />} />
         <Route path="*" element={<NotFound />} />
         
       </Routes>
