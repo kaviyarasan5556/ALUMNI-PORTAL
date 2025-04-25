@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 const JobPostingForm = () => {
   const [formData, setFormData] = useState({
-    jobTitle: "",
-    companyName: "",
+    title: "",
+    company: "",
     location: "",
     salary: "",
     skills: "",
     description: "",
-    employmentType: "Full-time",
-    experience: "Entry Level",
+    job_type: "Full-time",
+    experience: "0-3 Years",
   });
 
   const handleChange = (e) => {
@@ -20,13 +20,13 @@ const JobPostingForm = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('http://localhost:5000/api/jobs/add-job', {
+      const response = await fetch('http://localhost:5000/api/post-job', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
           skills: formData.skills.split(',').map(skill => skill.trim()), // Split skills into array
-          postedBy: "652a1234abcd5678ef901234" // Replace with actual logged-in user's ID
+          jobPostedBy: "652a1234abcd5678ef901234" // Replace with actual logged-in user's ID
         }),
       });
 
@@ -57,9 +57,9 @@ const JobPostingForm = () => {
             <label className="text-gray-700 font-medium">Job Title</label>
             <input
               type="text"
-              name="jobTitle"
+              name="title"
               placeholder="e.g. Senior React Developer"
-              value={formData.jobTitle}
+              value={formData.title}
               onChange={handleChange}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent"
               required
@@ -71,9 +71,9 @@ const JobPostingForm = () => {
             <label className="text-gray-700 font-medium">Company Name</label>
             <input
               type="text"
-              name="companyName"
+              name="company"
               placeholder="e.g. Tech Solutions Inc"
-              value={formData.companyName}
+              value={formData.company}
               onChange={handleChange}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent"
               required
@@ -111,8 +111,8 @@ const JobPostingForm = () => {
           <div className="space-y-2">
             <label className="text-gray-700 font-medium">Employment Type</label>
             <select
-              name="employmentType"
-              value={formData.employmentType}
+              name="job_type"
+              value={formData.job_type}
               onChange={handleChange}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent"
             >
