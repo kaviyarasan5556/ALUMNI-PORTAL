@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { BookOpen, Upload, Youtube, FileText, Video, Trash2, Plus, FolderOpen, Link } from 'lucide-react';
+import {
+  BookOpen, Upload, Youtube, FileText, Video,
+  Trash2, Plus, FolderOpen, Link
+} from 'lucide-react';
 
 const CareerResource = () => {
   const [resources, setResources] = useState([]);
@@ -32,20 +35,67 @@ const CareerResource = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.title && (formData.file || formData.youtubeLink)) {
-      setResources([...resources, { ...formData, id: Date.now() }]);
-      setFormData({
-        title: "",
-        description: "",
-        category: "",
-        file: null,
-        fileType: "",
-        youtubeLink: "",
-      });
-    }
+  const uploadFileToS3 = async (file) => {
+    const response = await fetch("/api/upload-url", {
+      method: "POST",
+      body: JSON.stringify({ fileName: file.name, fileType: file.type }),
+      headers: { "Content-Type": "application/json" }
+    });
+    const { url, key } = await response.json();
+
+    await fetch(url, {
+      method: "PUT",
+      headers: { "Content-Type": file.type },
+      body: file
+    });
+
+    return `https://your-s3-bucket.s3.amazonaws.com/${key}`;
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Form Submitted with data: ", formData);  // Debug log
+
+    if (!formData.title || (!formData.file && !formData.youtubeLink)) return;
+
+    try {
+        let fileUrl = "";
+        if (formData.file) {
+            fileUrl = await uploadFileToS3(formData.file);
+        }
+
+        const payload = {
+            title: formData.title,
+            description: formData.description,
+            category: formData.category,
+            fileUrl,
+            fileType: formData.fileType,
+            youtubeLink: formData.youtubeLink
+        };
+
+        console.log("Payload to be sent: ", payload);  // Debug log
+
+        await fetch("/api/resource", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        setResources([...resources, { ...payload, id: Date.now() }]);
+        setFormData({
+            title: "",
+            description: "",
+            category: "",
+            file: null,
+            fileType: "",
+            youtubeLink: "",
+        });
+
+    } catch (err) {
+        console.error("Upload failed", err);
+    }
+};
+
 
   const handleDelete = (id) => {
     setResources(resources.filter(resource => resource.id !== id));
@@ -54,17 +104,15 @@ const CareerResource = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 flex items-center justify-center gap-2">
             <BookOpen className="h-8 w-8 text-blue-600" />
-            Career Resources 
+            Career Resources
           </h1>
           <p className="mt-2 text-gray-600">Share and access valuable career development materials</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Upload Form */}
           <div className="lg:col-span-4">
             <div className="bg-white rounded-xl shadow-lg p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
@@ -81,7 +129,7 @@ const CareerResource = () => {
                     placeholder="Enter resource title"
                     value={formData.title}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   />
                 </div>
@@ -94,7 +142,7 @@ const CareerResource = () => {
                     value={formData.description}
                     onChange={handleChange}
                     rows="3"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
 
@@ -104,7 +152,7 @@ const CareerResource = () => {
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   >
                     <option value="">Select Category</option>
@@ -129,7 +177,7 @@ const CareerResource = () => {
                       />
                       <label
                         htmlFor="file-upload"
-                        className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-200"
+                        className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
                       >
                         <FolderOpen className="h-5 w-5 text-gray-500 mr-2" />
                         <span className="text-gray-600">Choose file</span>
@@ -153,7 +201,7 @@ const CareerResource = () => {
                         placeholder="https://youtube.com/watch?v=..."
                         value={formData.youtubeLink}
                         onChange={handleChange}
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                       <Youtube className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     </div>
@@ -162,7 +210,7 @@ const CareerResource = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 flex items-center justify-center gap-2"
+                  className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 flex items-center justify-center gap-2"
                 >
                   <Plus className="h-5 w-5" />
                   Add Resource
@@ -171,7 +219,6 @@ const CareerResource = () => {
             </div>
           </div>
 
-          {/* Resources List */}
           <div className="lg:col-span-8">
             <div className="bg-white rounded-xl shadow-lg p-6">
               <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
@@ -184,39 +231,39 @@ const CareerResource = () => {
                   {resources.map((resource) => (
                     <div
                       key={resource.id}
-                      className="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition-all duration-200"
+                      className="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300"
                     >
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="text-lg font-semibold text-gray-900">{resource.title}</h3>
                         <button
                           onClick={() => handleDelete(resource.id)}
-                          className="text-gray-400 hover:text-red-500 transition-colors duration-200"
+                          className="text-gray-400 hover:text-red-500"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
                       </div>
-                      
                       <p className="text-gray-600 text-sm mb-3">{resource.description}</p>
                       <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mb-3">
                         {resource.category}
                       </span>
 
                       <div className="space-y-2">
-                        {resource.fileType === "document" && resource.file && (
+                        {resource.fileType === "document" && resource.fileUrl && (
                           <a
-                            href={URL.createObjectURL(resource.file)}
-                            download={resource.file.name}
-                            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                            href={resource.fileUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
                           >
                             <FileText className="h-4 w-4" />
                             <span>Download Document</span>
                           </a>
                         )}
 
-                        {resource.fileType === "video" && resource.file && (
+                        {resource.fileType === "video" && resource.fileUrl && (
                           <div className="relative pt-[56.25%]">
                             <video
-                              src={URL.createObjectURL(resource.file)}
+                              src={resource.fileUrl}
                               controls
                               className="absolute top-0 left-0 w-full h-full rounded-lg"
                             />
