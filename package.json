@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.802.0",
+    "@aws-sdk/lib-storage": "^3.802.0",
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.0.13",
+    "aws-sdk": "^2.1692.0",
     "lucide-react": "^0.479.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
